@@ -7,7 +7,7 @@ import ElementPlus, {
     ElLoading,
     ElMessageBox,
     ElMessage
-} from 'ElementPlus';
+} from 'element-plus';
 
 console.log(ElementPlus);
 export default {

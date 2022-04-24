@@ -16,9 +16,9 @@ const routes = [
         hidden: true,
         redirect: {
             name: 'demo',
-            query: {
-                type: 'Simple'
-            }
+            // query: {
+            //     type: 'Simple'
+            // }
         }
     }
 ];

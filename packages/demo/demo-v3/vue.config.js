@@ -1,7 +1,9 @@
 /**
  * Created by Liu.Jun on 2019/10/25 15:42.
  */
-
+const {
+    name
+} = require('./package');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const chalk = require('chalk');
@@ -56,14 +58,27 @@ module.exports = {
 
     configureWebpack: (config) => {
         debugger;
-        config.externals = {
-            vue: 'Vue',
-            ElementPlus: 'ElementPlus',
-            VueRouter: 'VueRouter',
-        };
+        // config.externals = {
+        //     vue: 'Vue',
+        //     ElementPlus: 'ElementPlus',
+        //     VueRouter: 'VueRouter',
+        // };
+        config.module.rules.push({
+            test: /\.mjs$/,
+            include: /node_modules/,
+            type: 'javascript/auto'
+        });
+        
         config.resolve.alias = {
             ...config.resolve.alias,
             // '@lljj/vue3-form-element': '@lljj/vue3-form-element/src/index'
+        };
+
+        config.output = {
+            ...config.output,
+            library: `${name}-[name]`,
+            libraryTarget: 'window', // 把微应用打包成 umd 库格式
+            jsonpFunction: `webpackJsonp_${name}`,
         };
     },
 
@@ -157,6 +172,9 @@ module.exports = {
                     '^/api-dev': ''
                 }
             }
+        },
+        headers: {
+            'Access-Control-Allow-Origin': '*'
         }
     },
 

@@ -1,6 +1,7 @@
 /**
  * Created by Liu.Jun on 2019/10/25 15:42.
  */
+const { name } = require('./package');
 
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -64,6 +65,13 @@ module.exports = {
             ...config.resolve.alias,
             // '@lljj/vue-json-schema-form': '@lljj/vue-json-schema-form/src/index',
             // '@lljj/vue2-form-iview3': '@lljj/vue2-form-iview3/src/index',
+        };
+
+        config.output = {
+            ...config.output,
+            library: `${name}-[name]`,
+            libraryTarget: 'window', // 把微应用打包成 umd 库格式
+            jsonpFunction: `webpackJsonp_${name}`,
         };
     },
 
@@ -152,6 +160,9 @@ module.exports = {
                     '^/api-dev': ''
                 }
             }
+        },
+        headers: {
+            'Access-Control-Allow-Origin': '*'
         }
     },
 
